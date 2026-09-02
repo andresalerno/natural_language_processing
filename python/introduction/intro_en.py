@@ -1,3 +1,4 @@
+# para execução: python .\python\introduction\intro_en.py
 import nltk
 import spacy
 import numpy as np

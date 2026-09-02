@@ -11,3 +11,5 @@ env/
 
 # temporary files
 .DS_Store
+
+*.mp4
