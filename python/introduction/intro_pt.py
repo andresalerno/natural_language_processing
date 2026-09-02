@@ -1,12 +1,14 @@
-
+# para execução: python .\python\introduction\intro_pt.py
 import nltk
-import spacy
+import spacy                            # biblioteca moderna de PLN, muito usada para tokenização, POS tagging, entidades etc.
 import numpy as np
 import pandas as pd
 import copy as cp
 import joblib
+from pathlib import Path
 
 sentence = "Em 2022 houve uma acirrada eleição entre Bolsonaro e Lula."
+# Aqui você está fazendo uma tokenização extremamente simples. O Python divide a frase nos espaços.
 words = sentence.split()
 bag_of_words = cp.deepcopy(words)
 np.random.shuffle(bag_of_words)
@@ -18,13 +20,14 @@ print(bag_of_words)
 # Using natural language toolkit
 print("Usando o natural language toolkit:")
 # Use lang with ISO 639 code of the language
+# POS: Part-of-Speech
 #pos_tags = nltk.pos_tag(sentence.split(), lang="pt") # not implemented.
 
 # Reference to get the trained model:
 # https://github.com/inoueMashuu/POS-tagger-portuguese-nltk
-trained_data_folder = 'data/'
-portuguese_tagger = joblib.load(trained_data_folder+'POS_tagger_brill.pkl')
-pos_tags = portuguese_tagger.tag(nltk.word_tokenize(sentence))
+trained_data_folder = Path(__file__).parent / 'data'
+portuguese_tagger = joblib.load(trained_data_folder / 'POS_tagger_brill.pkl')
+pos_tags = portuguese_tagger.tag(nltk.wordpunct_tokenize(sentence))
 print(pos_tags)
 pos_tags_df = pd.DataFrame(pos_tags).T
 print(pos_tags_df)
